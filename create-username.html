@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Username - Folds Square Resort</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5; /* Light Tropical Sand */
+            color: #2c3e50; /* Dark Slate Gray */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            text-align: center;
+            background-color: #ffffff; /* White background */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        input[type="text"] {
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 100%;
+            max-width: 300px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #1abc9c; /* Tropical Teal */
+            border: none;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #16a085; /* Slightly darker teal */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Folds Square Resort</h1>
+        <p>Please enter your roleplay name:</p>
+        <input type="text" id="usernameInput" placeholder="Enter your username">
+        <button onclick="setUsername()">Save Username</button>
+        <p id="message"></p>
+    </div>
+
+    <script>
+        // Predefined list of taken usernames (simulate with local storage)
+        const takenUsernames = ['johnDoe', 'janeSmith', 'admin'];
+
+        // Check if a username is already stored
+        function checkUsername() {
+            const username = localStorage.getItem('username');
+            if (username) {
+                window.location.href = 'welcome.html';
+            }
+        }
+
+        // Save the username to local storage if it's unique
+        function setUsername() {
+            const username = document.getElementById('usernameInput').value.trim();
+            if (username === '') {
+                document.getElementById('message').textContent = 'Please enter a username.';
+                return;
+            }
+            if (takenUsernames.includes(username)) {
+                document.getElementById('message').textContent = 'Username is already taken. Please choose another one.';
+                return;
+            }
+            localStorage.setItem('username', username);
+            takenUsernames.push(username); // Simulate adding the username to the taken list
+            window.location.href = 'welcome.html';
+        }
+
+        // Run the checkUsername function when the page loads
+        window.onload = checkUsername;
+    </script>
+</body>
+</html>
